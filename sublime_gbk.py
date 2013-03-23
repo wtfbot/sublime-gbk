@@ -17,9 +17,15 @@ def gbk2utf8(view):
 		
 		file_name = view.file_name().encode('utf-8')
 
-		tmp_file_name = urllib.quote_plus(os.path.basename(file_name))  + SEPERATOR + urllib.quote_plus(file_name)
-		tmp_file = os.path.join(TEMP_PATH, tmp_file_name)
-
+		#tmp_file_name = urllib.quote_plus(os.path.basename(file_name))  + SEPERATOR + urllib.quote_plus(file_name)
+		#tmp_file = os.path.join(TEMP_PATH, tmp_file_name)
+		
+		tmp_path =  os.path.join(TEMP_PATH , SEPERATOR + urllib.quote_plus(os.path.dirname(file_name)))
+		if not os.path.exists(tmp_path):
+			os.makedirs(tmp_path)
+		
+		tmp_file = os.path.join(tmp_path , os.path.basename(file_name))
+		
 		f = file(tmp_file, 'w')
 		f.write(text.encode('utf8'))
 		f.close()
